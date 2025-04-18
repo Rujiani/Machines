@@ -8,8 +8,6 @@ namespace ATM {
             for (auto& cell : row) {
                 if(values[counter].first >= machine_matrix.size())
                     throw std::invalid_argument(std::format("Incorrect state on row %d", counter));
-                if(values[counter].second >= machine_matrix[0].size())
-                    throw std::invalid_argument(std::format("Incorrect value on row %d", counter));
                 cell = values[counter++];
             }
         }
