@@ -1,18 +1,16 @@
 #include "A_Mealy.hpp"
 #include <stdexcept>
-
+#include <format>
 namespace ATM {
-    void Mealy_Machine::fill_matrix(const vector<matrix_cell> &values) noexcept{
+    void Mealy_Machine::fill_matrix(const vector<matrix_cell> &values){
         size_t counter = 0;
-        for_each(machine_matrix.begin(), machine_matrix.end(),
-            [&values, &counter](vector<matrix_cell> &rows){
-                for_each(rows.begin(), rows.end(),
-                    [&values, &counter](matrix_cell &current_cell){
-                        current_cell = values[counter++];
-                    }
-                );
+        for (auto& row : machine_matrix) {
+            for (auto& cell : row) {
+                if(values[counter].first >= machine_matrix.size())
+                    throw std::invalid_argument(std::format("Incorrect state on row %d", counter + 1));
+                cell = values[counter++];
             }
-        );
+        }
     }
 
     Mealy_Machine::Mealy_Machine(const size_t num_of_states, const size_t num_of_inputs,
@@ -26,11 +24,11 @@ namespace ATM {
 }
 
 vector<size_t> Mealy_Machine::Process_sequence(const vector<size_t> &sequence){
-    vector<size_t> result(sequence.size());
-    size_t counter = 0;
+    vector<size_t> result;
+    result.reserve(sequence.size());
 
     for(const size_t seq : sequence){
-        result[counter++] = Process(seq);
+        result.push_back(Process(seq));
     }
 
     current_state = 0;

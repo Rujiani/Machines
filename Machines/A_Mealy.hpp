@@ -1,11 +1,9 @@
 #ifndef AUTOMAT_MEALY_HPP
 #define AUTOMAT_MEALY_HPP
 
-#include <algorithm>
 #include <vector>
 
 using std::vector;
-using std::for_each;
 
 namespace ATM {
 
@@ -16,7 +14,7 @@ class Mealy_Machine{
     size_t current_state = 0;
     vector<vector<matrix_cell>> machine_matrix;
 
-    void fill_matrix(const vector<matrix_cell> &values) noexcept;
+    void fill_matrix(const vector<matrix_cell> &values);
 
     size_t Process(const size_t input) noexcept;
 
