@@ -37,8 +37,8 @@ namespace ATM {
     }
 
     size_t Moore_Machine::Process(const size_t input)noexcept{
-        size_t return_value = machine_matrix[current_state].back();
         current_state = machine_matrix[current_state][input];
+        size_t return_value = machine_matrix[current_state].back();
         return return_value;
     }
 
